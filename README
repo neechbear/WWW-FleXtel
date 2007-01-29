@@ -9,7 +9,7 @@ SYNOPSIS
      my $flextel = WWW::FleXtel->new(
              account  => "A99999",
              number   => "0701773355",
-             pin      => 21234",
+             pin      => "21234",
              password => "password",
          );
  
@@ -32,7 +32,7 @@ METHODS
      my $flextel = WWW::FleXtel->new(
              account  => "A99999",
              number   => "0701773355",
-             pin      => 21234",
+             pin      => "21234",
              password => "password",
          );
 

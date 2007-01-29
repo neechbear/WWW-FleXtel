@@ -143,6 +143,10 @@ sub _executeQuery {
 
 	my $stor = $objstore->{refaddr($self)};
 	my %postDataPairs = @_;
+	for my $k (@{$stor->{validkeys}}) {
+		$postDataPairs{$k} = $stor->{validkeys}->{$k}
+			unless defined $postDataPairs{$k};
+	}
 
 	(my $subr = (caller(1))[3]) =~ s/.*:://;
 	my $queries = _getQueriesData();
@@ -280,7 +284,7 @@ WWW::FleXtel - Manipulate FleXtel phone number redirection
  my $flextel = WWW::FleXtel->new(
          account  => "A99999",
          number   => "0701773355",
-         pin      => 21234",
+         pin      => "21234",
          password => "password",
      );
  
@@ -307,7 +311,7 @@ release.
  my $flextel = WWW::FleXtel->new(
          account  => "A99999",
          number   => "0701773355",
-         pin      => 21234",
+         pin      => "21234",
          password => "password",
      );
 
