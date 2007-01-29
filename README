@@ -17,7 +17,7 @@ SYNOPSIS
      $flextel->set_destination(destination => "0800883322");
      printf("Diverted to %s\n", $flextel->get_destination);
  
-     print Dumper($flextel->phonebook);
+     print Dumper($flextel->get_phonebook);
 
 DESCRIPTION
     This module provides an OO interface to FleXtel telephone number

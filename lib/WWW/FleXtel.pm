@@ -144,7 +144,7 @@ sub _executeQuery {
 	my $stor = $objstore->{refaddr($self)};
 	my %postDataPairs = @_;
 	for my $k (@{$stor->{validkeys}}) {
-		$postDataPairs{$k} = $stor->{validkeys}->{$k}
+		$postDataPairs{$k} = $stor->{$k}
 			unless defined $postDataPairs{$k};
 	}
 
@@ -292,7 +292,7 @@ WWW::FleXtel - Manipulate FleXtel phone number redirection
  $flextel->set_destination(destination => "0800883322");
  printf("Diverted to %s\n", $flextel->get_destination);
  
- print Dumper($flextel->phonebook);
+ print Dumper($flextel->get_phonebook);
 
 =head1 DESCRIPTION
 

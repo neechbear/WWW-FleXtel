@@ -40,7 +40,7 @@ printf("Diverted to %s\n", $flextel->get_destination);
 my $destination = $flextel->set_destination(destination => "0800883322");
 printf("Diverted to %s\n", $destination);
     
-print Dumper($flextel->phonebook);
+print Dumper($flextel->get_phonebook);
 
 exit;
 
