@@ -1,0 +1,16 @@
+^tarballs
+^t/testdata/
+^_build
+^Build$
+^blib
+~$
+^\.
+\.sw[op]$
+\.bak$
+\.ppd$
+^MANIFEST\.SKIP$
+CVS
+.svn
+^DistBuild\.PL$
+^test$
+t/TEST

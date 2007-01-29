@@ -1,0 +1,74 @@
+NAME
+    WWW::FleXtel - Manipulate FleXtel phone number redirection
+
+SYNOPSIS
+     use strict;
+     use WWW::FleXtel qw();
+     use Data::Dumper qw(Dumper);
+ 
+     my $flextel = WWW::FleXtel->new(
+             account  => "A99999",
+             number   => "0701773355",
+             pin      => 21234",
+             password => "password",
+         );
+ 
+     printf("Diverted to %s\n", $flextel->get_destination);
+     $flextel->set_destination(destination => "0800883322");
+     printf("Diverted to %s\n", $flextel->get_destination);
+ 
+     print Dumper($flextel->phonebook);
+
+DESCRIPTION
+    This module provides an OO interface to FleXtel telephone number
+    redirection webpage.
+
+    This module is still actively under development, is not yet feature
+    complete and still needs to be fully documented. There is a possibility
+    accessor method names may change before the final release.
+
+METHODS
+  new
+     my $flextel = WWW::FleXtel->new(
+             account  => "A99999",
+             number   => "0701773355",
+             pin      => 21234",
+             password => "password",
+         );
+
+  get_destination
+     my $destination = $flextel->get_destination;
+     print "Diverted to $destination\n";
+
+  set_destination
+     my $destination = $flextel->set_destination(destination => "0800883322");
+     print "Diverted to $destination\n";
+
+  get_phonebook
+     my $phonebook = $flextel->get_phonebook;
+     use Data::Dumper qw(Dumper);
+     print Dumper($phonebook);
+
+SEE ALSO
+    <http://www.flextel.ltd.uk>
+
+VERSION
+    $Id: DMIDecode.pm 809 2006-10-22 12:47:45Z nicolaw $
+
+AUTHOR
+    Nicola Worthington <nicolaw@cpan.org>
+
+    <http://perlgirl.org.uk>
+
+    If you like this software, why not show your appreciation by sending the
+    author something nice from her Amazon wishlist? (
+    http://www.amazon.co.uk/gp/registry/1VZXC59ESWYK0?sort=priority )
+
+COPYRIGHT
+    Copyright 2007 Nicola Worthington.
+
+    This software is licensed under The Apache Software License, Version
+    2.0.
+
+    <http://www.apache.org/licenses/LICENSE-2.0>
+
