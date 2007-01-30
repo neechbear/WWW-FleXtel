@@ -61,7 +61,7 @@ sub new {
 
 	# Set some default values
 	$stor->{timeout} ||= 15; # 15 seconds
-	$stor->{cache_ttl} ||= 10; # Cache data for 10 seconds
+	$stor->{cache_ttl} ||= 5; # Cache data for 5 seconds
 	$stor->{'user-agent'} ||= sprintf('Mozilla/5.0 (X11; U; Linux i686; '.
 				'en-US; rv:1.8.1.1) Gecko/20060601 Firefox/2.0.0.1 (%s %s)',
 				__PACKAGE__, $VERSION);
@@ -83,6 +83,7 @@ sub new {
 sub set_destination { &_executeQuery; }
 sub get_destination { &_executeQuery; }
 sub get_phonebook   { &_executeQuery; }
+sub get_email       { &_executeQuery; }
 
 
 
@@ -163,7 +164,11 @@ sub _executeQuery {
 	# Process and parse the HTML response if the request was successfull
 	if ($response->is_success) {
 		my $data = _extractData($response->content);
-		$self->_writeCache("$cacheName*$params{number}", $data->{$cacheName});
+		for my $cacheName (keys %{$data}) {
+			if (defined $data->{$cacheName}) {
+				$self->_writeCache("$cacheName*$params{number}", $data->{$cacheName});
+			}
+		}
 		return $data->{$cacheName};
 
 	# Otherwise croak and die horribly
@@ -177,9 +182,11 @@ sub _readCache {
 	my ($self,$cacheName) = @_;
 	my $stor = $objstore->{refaddr($self)};
 
+	TRACE("Checking age of cache '$cacheName' ...");
 	if (defined $stor->{cache}->{$cacheName}->{'last_updated'} &&
 			time - $stor->{cache}->{$cacheName}->{'last_updated'}
 			< $stor->{'cache_ttl'}) {
+		TRACE("Reading cache '$cacheName' ...");
 		return $stor->{cache}->{$cacheName}->{'data'};
 	}
 	return;
@@ -190,6 +197,7 @@ sub _writeCache {
 	my ($self,$cacheName,$ref) = @_;
 	my $stor = $objstore->{refaddr($self)};
 
+	TRACE("Writing cache '$cacheName' ...");
 	$stor->{cache}->{$cacheName}->{'last_updated'} = time;
 	$stor->{cache}->{$cacheName}->{'data'} = $ref;
 }
@@ -262,6 +270,7 @@ sub _getQueryData {
 			'set_destination' => 'divert_simple',
 			'get_destination' => 'getpin_simple',
 			'get_phonebook'   => 'getpin_post',
+			'get_email'       => 'getpin_post',
 		);
 
 	my %queries = (
@@ -445,6 +454,10 @@ number's phonebook. This method has the potential to stop working in
 the future since it gathers the information by performing very basic
 parsing of the JavaScript object assignments on your FleXtel number's
 rerouting webpage.
+
+=head2 get_email
+
+ my $notification_address = $flextel->get_email;
 
 =head1 SEE ALSO
 
