@@ -390,13 +390,8 @@ WWW::FleXtel - Manipulate FleXtel phone number redirection
 
 =head1 DESCRIPTION
 
-This module provides an OO interface to FleXtel telephone number
-redirection webpage.
-
-This module is still actively under development, is not yet
-feature complete and still needs to be fully documented. There is
-a possibility accessor method names may change before the final
-release.
+This module provides a very basic OO interface to FleXtel telephone
+number redirection webpage.
 
 =head1 METHODS
 

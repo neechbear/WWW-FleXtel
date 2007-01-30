@@ -36,13 +36,27 @@ METHODS
              password => "password",
          );
 
+    Create a new WWW::FleXtel object. Currently the *account* and *password*
+    parameters are unsed and therefor do not need to be passed to this
+    constructor method.
+
+    This method does have any mandatory parameters. However values passed
+    this constructor method will be used as default fallback values if they
+    are not passed to the subsequent accessor methods detailed below.
+
   get_destination
      my $destination = $flextel->get_destination;
      print "Diverted to $destination\n";
 
+    Retrieves the destination telephone number that your FleXtel number is
+    currently diverted to.
+
   set_destination
      my $destination = $flextel->set_destination(destination => "01923001122");
      print "Diverted to $destination\n";
+
+    Sets the destination telephone number that your FleXtel number is
+    diverted to.
 
   get_phonebook
      my $phonebook = $flextel->get_phonebook;
