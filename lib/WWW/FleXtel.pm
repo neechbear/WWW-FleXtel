@@ -30,7 +30,7 @@ use Scalar::Util qw(refaddr);
 use Carp qw(croak cluck carp confess);
 use vars qw($VERSION $DEBUG);
 
-$VERSION = '0.01' || sprintf('%d', q$Revision: 809 $ =~ /(\d+)/g);
+$VERSION = '0.02' || sprintf('%d', q$Revision: 809 $ =~ /(\d+)/g);
 $DEBUG ||= $ENV{DEBUG} ? 1 : 0;
 
 my $objstore = {};

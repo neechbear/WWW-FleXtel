@@ -1,3 +1,7 @@
+Version 0.02 - 30th January 2007
+    + Fixed typo in Build.PL to correctly require
+      Crypt::SSLeay instead of SSLeay for https support.
+
 Version 0.01 - 29th January 2007
     + Initial developer pre-release to save the namespace
       and to discuss API prior to full release.
