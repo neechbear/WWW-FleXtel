@@ -1,6 +1,11 @@
 Version 0.02 - 30th January 2007
     + Fixed typo in Build.PL to correctly require
       Crypt::SSLeay instead of SSLeay for https support.
+    + Added support for new "simple" GET requests.
+    + Added basic internal caching support.
+    + Added max_size limitation on LWP requests.
+    + Added package name and version to User-Agent.
+    + Updated POD.
 
 Version 0.01 - 29th January 2007
     + Initial developer pre-release to save the namespace
