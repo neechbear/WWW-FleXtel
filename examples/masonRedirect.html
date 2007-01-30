@@ -25,7 +25,7 @@ FleXtel number <% $flextelNumber %> is diverted to <% $status->{destination} %>.
 	use Storable qw(store retrieve);
 
 	# Define some paramaters
-	my $flextelNumber = '07017726522';
+	my $flextelNumber = '07017766554';
 	my $cacheTTL = 60*30; # 30 minutes
 	my $cacheFile = '/tmp/flextelNumber.dat';
 	my $status = -f $cacheFile ? retrieve($cacheFile) : {};

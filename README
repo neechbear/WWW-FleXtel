@@ -5,19 +5,19 @@ SYNOPSIS
      use strict;
      use WWW::FleXtel qw();
      use Data::Dumper qw(Dumper);
- 
-     my $flextel = WWW::FleXtel->new(
+     
+ my $flextel = WWW::FleXtel->new(
+             number   => "0701776655",
+             pin      => "1234",
              account  => "A99999",
-             number   => "0701773355",
-             pin      => "21234",
              password => "password",
          );
- 
+     
+ printf("Diverted to %s\n", $flextel->get_destination);
+     $flextel->set_destination(destination => "01923001122");
      printf("Diverted to %s\n", $flextel->get_destination);
-     $flextel->set_destination(destination => "0800883322");
-     printf("Diverted to %s\n", $flextel->get_destination);
- 
-     print Dumper($flextel->get_phonebook);
+     
+ print Dumper($flextel->get_phonebook);
 
 DESCRIPTION
     This module provides an OO interface to FleXtel telephone number
@@ -30,9 +30,9 @@ DESCRIPTION
 METHODS
   new
      my $flextel = WWW::FleXtel->new(
+             number   => "0701776655",
+             pin      => "1234",
              account  => "A99999",
-             number   => "0701773355",
-             pin      => "21234",
              password => "password",
          );
 
@@ -41,13 +41,19 @@ METHODS
      print "Diverted to $destination\n";
 
   set_destination
-     my $destination = $flextel->set_destination(destination => "0800883322");
+     my $destination = $flextel->set_destination(destination => "01923001122");
      print "Diverted to $destination\n";
 
   get_phonebook
      my $phonebook = $flextel->get_phonebook;
      use Data::Dumper qw(Dumper);
      print Dumper($phonebook);
+
+    This method extracts the indexes, names and numbers from your FleXtel
+    number's phonebook. This method has the potential to stop working in the
+    future since it gathers the information by performing very basic parsing
+    of the JavaScript object assignments on your FleXtel number's rerouting
+    webpage.
 
 SEE ALSO
     <http://www.flextel.ltd.uk>

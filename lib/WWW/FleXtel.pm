@@ -147,16 +147,16 @@ sub _executeQuery {
 	# Post the request to the server
 	my $ua = $stor->{ua};
 	$ua->default_header('Referer' => $query->{referer});
+
 	my $response;
 	if ($query->{method} eq 'GET') {
-		my $url = join('?',$query->{url},
-					join('&',
-						map { "$_=$query->{data}->{$_}" }
-							keys %{$query->{data}}
-					));
-		TRACE($url);
+		my $url = join('?',$query->{url}, join('&', map
+				{ "$_=$query->{data}->{$_}" } keys %{$query->{data}}));
+		TRACE("GET $url");
 		$response = $ua->get($url);
+
 	} else { # Default to POST
+		TRACE("POST $query->{url}");
 		$response = $ua->post($query->{url}, $query->{data});
 	};
 
@@ -424,6 +424,12 @@ release.
  my $phonebook = $flextel->get_phonebook;
  use Data::Dumper qw(Dumper);
  print Dumper($phonebook);
+ 
+ my $destination = $flextel->get_destination;
+ my ($person) = grep(/\S/, map {
+         $_->{title} if defined $_ && $_->{number} eq $destination
+     } @{$phonebook}) || "*not recorded*";
+ print "$destination is $person in your phonebook\n";
 
 This method extracts the indexes, names and numbers from your FleXtel
 number's phonebook. This method has the potential to stop working in
