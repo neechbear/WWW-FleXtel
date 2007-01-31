@@ -71,6 +71,9 @@ METHODS
     of the JavaScript object assignments on your FleXtel number's rerouting
     webpage.
 
+  get_email
+     my $notification_address = $flextel->get_email;
+
 SEE ALSO
     <http://www.flextel.ltd.uk>
 

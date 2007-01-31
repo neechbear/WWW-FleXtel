@@ -30,7 +30,7 @@ use Scalar::Util qw(refaddr);
 use Carp qw(croak cluck carp confess);
 use vars qw($VERSION $DEBUG);
 
-$VERSION = '0.02' || sprintf('%d', q$Revision: 809 $ =~ /(\d+)/g);
+$VERSION = '0.02' || sprintf('%d', q$Revision$ =~ /(\d+)/g);
 $DEBUG ||= $ENV{DEBUG} ? 1 : 0;
 
 my $objstore = {};
@@ -465,7 +465,7 @@ L<http://www.flextel.ltd.uk>
 
 =head1 VERSION
 
-$Id: DMIDecode.pm 809 2006-10-22 12:47:45Z nicolaw $
+$Id$
 
 =head1 AUTHOR
 

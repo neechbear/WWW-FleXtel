@@ -1,5 +1,5 @@
 # vim:ts=4:sw=4:tw=78
-# $Id: Build.PL 807 2006-10-22 12:15:10Z nicolaw $
+# $Id$
 
 use strict;
 use Module::Build;
@@ -46,7 +46,7 @@ if ($url) {
 		local $SIG{ALRM} = sub { die; };
 		alarm 10;
 		my $ua = LWP::UserAgent->new(
-				agent => 'Build.PL $Revision: 807 $',
+				agent => 'Build.PL $Revision$',
 				timeout => 9,
 				max_size => 500,
 			);
