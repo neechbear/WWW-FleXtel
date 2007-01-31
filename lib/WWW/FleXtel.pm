@@ -30,7 +30,7 @@ use Scalar::Util qw(refaddr);
 use Carp qw(croak cluck carp confess);
 use vars qw($VERSION $DEBUG);
 
-$VERSION = '0.02' || sprintf('%d', q$Revision$ =~ /(\d+)/g);
+$VERSION = '0.03' || sprintf('%d', q$Revision$ =~ /(\d+)/g);
 $DEBUG ||= $ENV{DEBUG} ? 1 : 0;
 
 my $objstore = {};
@@ -458,6 +458,11 @@ rerouting webpage.
 =head2 get_email
 
  my $notification_address = $flextel->get_email;
+
+This method returns the notification email address currently assigned
+to your FleXtel number. Like the I<get_phonebook> method, this method
+has the potential to stop working in the future if your FleXtel
+number's rerouting webpage changes significantly.
 
 =head1 SEE ALSO
 

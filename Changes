@@ -1,3 +1,7 @@
+Version 0.03 - 31st January 2007
+    + Fixed version in POD and other files.
+    + Slightly modified POD.
+
 Version 0.02 - 30th January 2007
     + Fixed typo in Build.PL to correctly require
       Crypt::SSLeay instead of SSLeay for https support.
