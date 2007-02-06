@@ -28,10 +28,12 @@ use WWW::FleXtel qw();
 use Data::Dumper qw(Dumper);
 
 my %acct = (
-		account  => 'A999999',
-		password => 'password',
-		number   => '07010000000',
-		pin      => '1234',
+		#account   => 'A999999',
+		#password  => 'password',
+		number    => '07010000000',
+		pin       => '1234',
+		cache_ttl => 15,
+		timeout   => 15,
 	);
 
 my $flextel = WWW::FleXtel->new(%acct);
@@ -44,7 +46,20 @@ printf("Email: %s\nDestination: %s\nICD: %s\n",
 		$flextel->get_icd,
 	);
 
+print "Sleeping 10 seconds ...\n";
+sleep 10;
+
 print Dumper($flextel->get_phonebook);
+
+print "Sleeping 10 seconds ...\n";
+sleep 10;
+
+printf("Email: %s\nDestination: %s\nICD: %s\n",
+		$flextel->get_email,
+		$flextel->get_destination,
+		$flextel->get_icd,
+	);
+
 
 exit;
 

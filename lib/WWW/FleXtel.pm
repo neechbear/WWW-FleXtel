@@ -50,7 +50,7 @@ sub new {
 	my $stor = $objstore->{refaddr($self)};
 
 	# Define what parameters are valid for this constructor
-	$stor->{validkeys} = [qw(password account pin number)];
+	$stor->{validkeys} = [qw(password account pin number timeout cache_ttl)];
 	my $validkeys = join('|',@{$stor->{validkeys}});
 
 	# Only accept sensible known parameters from punters
@@ -468,6 +468,39 @@ to this constructor method.
 This method does have any mandatory parameters. However values passed
 this constructor method will be used as default fallback values if they
 are not passed to the subsequent accessor methods detailed below.
+
+=over 4
+
+=item number
+
+Specifies the default FleXtel number to use for all subsequent queries.
+
+=item pin
+
+Specifies the default PIN to use for all subsqeuent queries.
+
+=item account
+
+Specifies the default FleXtel account number to use for all subsequent
+queries. This parameter is not currently used, but may be used in future
+releases.
+
+=item password
+
+Specifies the default account password to use for all subsequent queries.
+This parameter is not currently use, but may be used in future releases.
+
+=item timeout
+
+Specifies (in seconds) the timeout for all HTTP connections. By default
+this is set to 15 seconds.
+
+=item cache_ttl
+
+Specifies (in seconds) the TTL for values to be cached internally within
+the WWW::FleXtel object. By default this is set to 5 seconds.
+
+=back
 
 =head2 get_destination
 
