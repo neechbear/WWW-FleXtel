@@ -434,13 +434,14 @@ WWW::FleXtel - Manipulate FleXtel phone number redirection
  my $flextel = WWW::FleXtel->new(
          number   => "0701776655",
          pin      => "1234",
-         account  => "A99999",
-         password => "password",
+         account  => "A99999", # not required
+         password => "password", # not required
      );
  
  printf("Diverted to %s\n", $flextel->get_destination);
- $flextel->set_destination(destination => "01923001122");
- printf("Diverted to %s\n", $flextel->get_destination);
+ printf("Diverted to %s\n", $flextel->set_destination(
+         destination => "01923001122"
+     );
  
  print Dumper($flextel->get_phonebook);
 
@@ -456,8 +457,8 @@ number redirection webpage.
  my $flextel = WWW::FleXtel->new(
          number   => "0701776655",
          pin      => "1234",
-         account  => "A99999",
-         password => "password",
+         account  => "A99999", # not required
+         password => "password", # not required
      );
 
 Create a new WWW::FleXtel object. Currently the I<account> and
