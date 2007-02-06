@@ -1,4 +1,4 @@
-<SOFTPKG NAME="WWW-FleXtel" VERSION="0,02,0,0">
+<SOFTPKG NAME="WWW-FleXtel" VERSION="0,03,0,0">
     <TITLE>WWW-FleXtel</TITLE>
     <ABSTRACT>Manipulate FleXtel phone number redirection</ABSTRACT>
     <AUTHOR>Nicola Worthington &lt;nicolaw@cpan.org&gt;</AUTHOR>
@@ -7,6 +7,6 @@
         <DEPENDENCY NAME="LWP-UserAgent" VERSION="0,0,0,0" />
         <DEPENDENCY NAME="Crypt-SSLeay" VERSION="0,0,0,0" />
         <DEPENDENCY NAME="Carp" VERSION="0,0,0,0" />
-        <CODEBASE HREF="PPM-WWW-FleXtel-0.02.tar.gz" />
+        <CODEBASE HREF="PPM-WWW-FleXtel-0.03.tar.gz" />
     </IMPLEMENTATION>
 </SOFTPKG>
