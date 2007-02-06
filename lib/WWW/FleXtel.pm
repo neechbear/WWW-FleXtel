@@ -493,7 +493,7 @@ diverted to.
  my $destination = $flextel->get_destination;
  my ($person) = grep(/\S/, map {
          $_->{title} if defined $_ && $_->{number} eq $destination
-     } @{$phonebook}) || "*not recorded*";
+     } @{$phonebook}); $person ||= "*not recorded*";
  print "$destination is $person in your phonebook\n";
 
 This method extracts the indexes, names and numbers from your FleXtel
