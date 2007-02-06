@@ -60,7 +60,9 @@ sub new {
 		if @invalidkeys && $^W;
 
 	# Set some default values
+	delete $stor->{timeout} if !defined $stor->{timeout} || $stor->{timeout} !~ /^[1-9]\d*$/;
 	$stor->{timeout} ||= 15; # 15 seconds
+	delete $stor->{cache_ttl} if !defined $stor->{cache_ttl} || $stor->{cache_ttl} !~ /^\d+$/;
 	$stor->{cache_ttl} ||= 5; # Cache data for 5 seconds
 	$stor->{'user-agent'} ||= sprintf('Mozilla/5.0 (X11; U; Linux i686; '.
 				'en-US; rv:1.8.1.1) Gecko/20060601 Firefox/2.0.0.1 (%s %s)',
