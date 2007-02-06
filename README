@@ -66,19 +66,23 @@ METHODS
      print "$destination is $person in your phonebook\n";
 
     This method extracts the indexes, names and numbers from your FleXtel
-    number's phonebook. This method has the potential to stop working in the
-    future since it gathers the information by performing very basic parsing
-    of the JavaScript object assignments on your FleXtel number's rerouting
-    webpage.
+    number's phonebook.
+
+  get_icd
+     my $icd = $flextel->get_icd;
 
   get_email
      my $notification_address = $flextel->get_email;
+
+TODO
+    Add support for retrieving a list of all FleXtel phone numbers attached
+    to an account number.
 
 SEE ALSO
     <http://www.flextel.ltd.uk>
 
 VERSION
-    $Id: DMIDecode.pm 809 2006-10-22 12:47:45Z nicolaw $
+    $Id: FleXtel.pm 935 2007-02-06 16:30:55Z nicolaw $
 
 AUTHOR
     Nicola Worthington <nicolaw@cpan.org>
@@ -88,6 +92,13 @@ AUTHOR
     If you like this software, why not show your appreciation by sending the
     author something nice from her Amazon wishlist? (
     http://www.amazon.co.uk/gp/registry/1VZXC59ESWYK0?sort=priority )
+
+ACKNOWLEDGEMENTS
+    Special thanks to Kevin Archer at FleXtel and the FleXtel support and
+    development team for implementing the simple CVS access methods to their
+    website.
+
+    See CREDITS in the distribution tarball.
 
 COPYRIGHT
     Copyright 2007 Nicola Worthington.
