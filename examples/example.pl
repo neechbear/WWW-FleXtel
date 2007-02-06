@@ -36,10 +36,14 @@ my %acct = (
 
 my $flextel = WWW::FleXtel->new(%acct);
 
-printf("Diverted to %s\n", $flextel->get_destination);
 my $destination = $flextel->set_destination(destination => "0800883322");
-printf("Diverted to %s\n", $destination);
-    
+
+printf("Email: %s\nDestination: %s\nICD: %s\n",
+		$flextel->get_email,
+		$flextel->get_destination,
+		$flextel->get_icd,
+	);
+
 print Dumper($flextel->get_phonebook);
 
 exit;
