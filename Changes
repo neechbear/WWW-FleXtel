@@ -1,6 +1,11 @@
-Version 0.03 - 31st January 2007
+Version 0.03 - 6th February 2007
     + Fixed version in POD and other files.
     + Slightly modified POD.
+    + Added get_icd() method.
+    + Added CREDITS file.
+    + Changed get_phonebook() method to use the
+      getpin_simple action so as not to reply on
+      parsing JavaScript.
 
 Version 0.02 - 30th January 2007
     + Fixed typo in Build.PL to correctly require
@@ -8,6 +13,7 @@ Version 0.02 - 30th January 2007
     + Added support for new "simple" GET requests.
     + Added basic internal caching support.
     + Added max_size limitation on LWP requests.
+    + Added get_email() method.
     + Added package name and version to User-Agent.
     + Updated POD.
 

@@ -13,4 +13,6 @@ CVS
 .svn
 ^DistBuild\.PL$
 ^test$
+^test\.pl$
+^foo\.pl$
 t/TEST

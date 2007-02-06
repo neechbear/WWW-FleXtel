@@ -84,6 +84,7 @@ sub set_destination { &_executeQuery; }
 sub get_destination { &_executeQuery; }
 sub get_phonebook   { &_executeQuery; }
 sub get_email       { &_executeQuery; }
+sub get_icd         { &_executeQuery; }
 
 
 
@@ -230,11 +231,38 @@ sub _extractData {
 	my $html = shift;
 	my %data;
 
-	if ($html =~ /^\s*([0-9\#\+]{8,})\s*$/s) {
-		$data{destination} = $1;
+	if ($html =~ /^\s*([0-9\#\+]{8,}(?:,.*)?)\s*$/s) {
+		my @args = split(/\s*,\s*/,$1);
+		s/(^\s*|\s*$)//gs for @args;
+		DUMP('@args',\@args);
+		# 01923000009,,01923111119,01992222221,01933333368,,,,,,nicolaw@lilacup.2x4b.com
+		# destination
+		# ICD destination
+		# memory 1, memory 2, memory 3, memory 4, memory 5, memory 6, memory 7, memory 8
+		# email address (flextel number specific - not account holder email)
+		# label 1, label 2, label 3, label 4, label 5, label 6, label 7, label 8
+
+		$data{destination} = shift @args;
+		if (@args) {
+			$data{icd} = shift @args;
+			for (1..8) {
+				my $mem = shift @args;
+				$data{phonebook}->[$_]->{number} = $mem;
+				$data{phonebook}->[$_]->{memory} = $_;
+				TRACE("memory $_ => '$mem'");
+			}
+			$data{email} = shift @args;
+			for (1..8) {
+				my $title = shift @args;
+				$data{phonebook}->[$_]->{title} = $title;
+				$data{phonebook}->[$_]->{memory} = $_;
+				TRACE("memory title $_ => '$title'");
+			}
+		}
 		return \%data;
 	}
 
+	# Nasty Javascript scraping
 	for (split(/[\n\r]/,$html)) {
 		chomp;
 		if (my ($key,$num,$val) = $_ =~
@@ -242,12 +270,14 @@ sub _extractData {
 			$val =~ s/^\s*"\s*//g;
 			$val =~ s/\s*"\s*$//g;
 
-			if ($key =~ /^mem\d+$/) {
+			if (my ($index) = $key =~ /^mem(\d+)$/) {
 				$val =~ s/[^0-9\#]//g;
 				$data{phonebook}->[$num]->{number} = $val;
+				$data{phonebook}->[$num]->{memory} = $index;
 
-			} elsif ($key =~ /^mem\d+text$/) {
+			} elsif ($key =~ /^mem(\d+)text$/) {
 				$data{phonebook}->[$num]->{title} = $val;
+				$data{phonebook}->[$num]->{memory} = $1;
 
 			} elsif ($key eq 'email' && $val =~ /"(\S+?)"/) {
 				$data{email} = $1;
@@ -269,11 +299,28 @@ sub _getQueryData {
 	my %subrMap = (
 			'set_destination' => 'divert_simple',
 			'get_destination' => 'getpin_simple',
-			'get_phonebook'   => 'getpin_post',
-			'get_email'       => 'getpin_post',
+			'get_phonebook'   => 'getpin_simple',
+			'get_email'       => 'getpin_simple',
+			'get_icd'         => 'getpin_simple',
 		);
 
 	my %queries = (
+		'account_post' => {
+			'method' => 'POST',
+			'url' => 'https://www.flextel.ltd.uk/cgi-bin/account.sh',
+			'referer' => 'Referer=https://www.flextel.ltd.uk/cgi-bin/passthru.sh?f=account&h=logon',
+			'data' => {
+				'mode'    => 'logon',
+				'cust_id' => '@@account@@',
+				'flextel' => '',
+				'start'   => '1',
+				'total'   => '9999',
+				'control' => '',
+				'acc_no'  => '@@account@@',
+				'pwd'     => '@@password@@',
+				'Logon'   => 'Logon',
+			},
+		},
 		'getpin_simple' => {
 			'method' => 'GET',
 			'url' => 'https://www.flextel.ltd.uk/cgi-bin/reroute.sh',
@@ -450,19 +497,20 @@ diverted to.
  print "$destination is $person in your phonebook\n";
 
 This method extracts the indexes, names and numbers from your FleXtel
-number's phonebook. This method has the potential to stop working in
-the future since it gathers the information by performing very basic
-parsing of the JavaScript object assignments on your FleXtel number's
-rerouting webpage.
+number's phonebook.
+
+=head2 get_icd
+
+ my $icd = $flextel->get_icd;
 
 =head2 get_email
 
  my $notification_address = $flextel->get_email;
 
-This method returns the notification email address currently assigned
-to your FleXtel number. Like the I<get_phonebook> method, this method
-has the potential to stop working in the future if your FleXtel
-number's rerouting webpage changes significantly.
+=head1 TODO
+
+Add support for retrieving a list of all FleXtel phone numbers
+attached to an account number.
 
 =head1 SEE ALSO
 
@@ -482,6 +530,14 @@ If you like this software, why not show your appreciation by sending the
 author something nice from her
 L<Amazon wishlist|http://www.amazon.co.uk/gp/registry/1VZXC59ESWYK0?sort=priority>? 
 ( http://www.amazon.co.uk/gp/registry/1VZXC59ESWYK0?sort=priority )
+
+=head1 ACKNOWLEDGEMENTS
+
+Special thanks to Kevin Archer at FleXtel and the FleXtel support and 
+development team for implementing the simple CVS access methods to their
+website.
+
+See CREDITS in the distribution tarball.
 
 =head1 COPYRIGHT
 
