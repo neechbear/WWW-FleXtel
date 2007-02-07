@@ -6,7 +6,7 @@ Version 0.03 - 7th February 2007
     + Changed get_phonebook() method to use the
       getpin_simple action so as not to reply on
       parsing JavaScript.
-    + Changed Build.PL to indicate version 5.800
+    + Changed Build.PL to indicate version 2.032
       of libwww-perl is required for the new
       default_header() method.
 
