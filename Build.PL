@@ -16,7 +16,7 @@ $build = Module::Build->new(
 		requires => {
 			'Carp'         => 0, # 1.04
 			'Scalar::Util' => 0,
-			'LWP::UserAgent' => 0,
+			'LWP::UserAgent' => '5.800', # Require default_header() method
 			'Crypt::SSLeay' => 0,
 		},
 

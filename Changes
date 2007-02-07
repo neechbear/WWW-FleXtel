@@ -1,4 +1,4 @@
-Version 0.03 - 6th February 2007
+Version 0.03 - 7th February 2007
     + Fixed version in POD and other files.
     + Slightly modified POD.
     + Added get_icd() method.
@@ -6,6 +6,9 @@ Version 0.03 - 6th February 2007
     + Changed get_phonebook() method to use the
       getpin_simple action so as not to reply on
       parsing JavaScript.
+    + Changed Build.PL to indicate version 5.800
+      of libwww-perl is required for the new
+      default_header() method.
 
 Version 0.02 - 30th January 2007
     + Fixed typo in Build.PL to correctly require

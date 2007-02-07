@@ -9,13 +9,14 @@ SYNOPSIS
  my $flextel = WWW::FleXtel->new(
              number   => "0701776655",
              pin      => "1234",
-             account  => "A99999",
-             password => "password",
+             account  => "A99999", # not required
+             password => "password", # not required
          );
      
  printf("Diverted to %s\n", $flextel->get_destination);
-     $flextel->set_destination(destination => "01923001122");
-     printf("Diverted to %s\n", $flextel->get_destination);
+     printf("Diverted to %s\n", $flextel->set_destination(
+             destination => "01923001122"
+         );
      
  print Dumper($flextel->get_phonebook);
 
@@ -28,8 +29,8 @@ METHODS
      my $flextel = WWW::FleXtel->new(
              number   => "0701776655",
              pin      => "1234",
-             account  => "A99999",
-             password => "password",
+             account  => "A99999", # not required
+             password => "password", # not required
          );
 
     Create a new WWW::FleXtel object. Currently the *account* and *password*
@@ -39,6 +40,30 @@ METHODS
     This method does have any mandatory parameters. However values passed
     this constructor method will be used as default fallback values if they
     are not passed to the subsequent accessor methods detailed below.
+
+    number
+        Specifies the default FleXtel number to use for all subsequent
+        queries.
+
+    pin Specifies the default PIN to use for all subsqeuent queries.
+
+    account
+        Specifies the default FleXtel account number to use for all
+        subsequent queries. This parameter is not currently used, but may be
+        used in future releases.
+
+    password
+        Specifies the default account password to use for all subsequent
+        queries. This parameter is not currently use, but may be used in
+        future releases.
+
+    timeout
+        Specifies (in seconds) the timeout for all HTTP connections. By
+        default this is set to 15 seconds.
+
+    cache_ttl
+        Specifies (in seconds) the TTL for values to be cached internally
+        within the WWW::FleXtel object. By default this is set to 5 seconds.
 
   get_destination
      my $destination = $flextel->get_destination;
@@ -62,7 +87,7 @@ METHODS
  my $destination = $flextel->get_destination;
      my ($person) = grep(/\S/, map {
              $_->{title} if defined $_ && $_->{number} eq $destination
-         } @{$phonebook}) || "*not recorded*";
+         } @{$phonebook}); $person ||= "*not recorded*";
      print "$destination is $person in your phonebook\n";
 
     This method extracts the indexes, names and numbers from your FleXtel
@@ -82,7 +107,7 @@ SEE ALSO
     <http://www.flextel.ltd.uk>
 
 VERSION
-    $Id: FleXtel.pm 935 2007-02-06 16:30:55Z nicolaw $
+    $Id: FleXtel.pm 942 2007-02-06 18:51:21Z nicolaw $
 
 AUTHOR
     Nicola Worthington <nicolaw@cpan.org>
