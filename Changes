@@ -1,3 +1,6 @@
+Version 0.04 - 26th February 2007
+    + Removed dependancy on Scalar::Util.
+
 Version 0.03 - 7th February 2007
     + Fixed version in POD and other files.
     + Slightly modified POD.

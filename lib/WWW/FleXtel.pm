@@ -26,11 +26,11 @@ use 5.6.1;
 use strict;
 use warnings;
 use LWP::UserAgent qw();
-use Scalar::Util qw(refaddr);
+#use Scalar::Util qw(refaddr);
 use Carp qw(croak cluck carp confess);
 use vars qw($VERSION $DEBUG);
 
-$VERSION = '0.03' || sprintf('%d', q$Revision$ =~ /(\d+)/g);
+$VERSION = '0.04' || sprintf('%d', q$Revision$ =~ /(\d+)/g);
 $DEBUG ||= $ENV{DEBUG} ? 1 : 0;
 
 my $objstore = {};
@@ -46,8 +46,8 @@ sub new {
 
 	# Conjure up an invisible object 
 	my $self = bless \(my $dummy), $class;
-	$objstore->{refaddr($self)} = {@_};
-	my $stor = $objstore->{refaddr($self)};
+	$objstore->{_refaddr($self)} = {@_};
+	my $stor = $objstore->{_refaddr($self)};
 
 	# Define what parameters are valid for this constructor
 	$stor->{validkeys} = [qw(password account pin number timeout cache_ttl)];
@@ -95,6 +95,33 @@ sub get_icd         { &_executeQuery; }
 # Private methods
 #
 
+no warnings 'redefine';
+sub UNIVERSAL::a_sub_not_likely_to_be_here { ref($_[0]) }
+use warnings 'redefine';
+
+
+sub _blessed ($) {
+	local($@, $SIG{__DIE__}, $SIG{__WARN__});
+	return length(ref($_[0]))
+			? eval { $_[0]->a_sub_not_likely_to_be_here }
+			: undef
+}
+
+
+sub _refaddr($) {
+	my $pkg = ref($_[0]) or return undef;
+	if (blessed($_[0])) {
+		bless $_[0], 'Scalar::Util::Fake';
+	} else {
+		$pkg = undef;
+	}
+	"$_[0]" =~ /0x(\w+)/;
+	my $i = do { local $^W; hex $1 };
+	bless $_[0], $pkg if defined $pkg;
+	return $i;
+}
+
+
 sub _deepCopy{
 	my $this = shift;
 	if (!ref($this)) {
@@ -117,7 +144,7 @@ sub _executeQuery {
 
 	# Retrieve our object data stor and merge
 	# parameters from this method and the constructor
-	my $stor = $objstore->{refaddr($self)};
+	my $stor = $objstore->{_refaddr($self)};
 	my %params = @_;
 	for my $k (@{$stor->{validkeys}}) {
 		$params{$k} = $stor->{$k}
@@ -183,7 +210,7 @@ sub _executeQuery {
 
 sub _readCache {
 	my ($self,$cacheName) = @_;
-	my $stor = $objstore->{refaddr($self)};
+	my $stor = $objstore->{_refaddr($self)};
 
 	TRACE("Checking age of cache '$cacheName' ...");
 	if (defined $stor->{cache}->{$cacheName}->{'last_updated'} &&
@@ -198,7 +225,7 @@ sub _readCache {
 
 sub _writeCache {
 	my ($self,$cacheName,$ref) = @_;
-	my $stor = $objstore->{refaddr($self)};
+	my $stor = $objstore->{_refaddr($self)};
 
 	TRACE("Writing cache '$cacheName' ...");
 	$stor->{cache}->{$cacheName}->{'last_updated'} = time;
@@ -395,7 +422,7 @@ sub _getQueryData {
 
 sub DESTROY {
 	my $self = shift;
-	delete $objstore->{refaddr($self)};
+	delete $objstore->{_refaddr($self)};
 }
 
 

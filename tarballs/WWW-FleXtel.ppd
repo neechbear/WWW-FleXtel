@@ -4,7 +4,7 @@
     <AUTHOR>Nicola Worthington &lt;nicolaw@cpan.org&gt;</AUTHOR>
     <IMPLEMENTATION>
         <DEPENDENCY NAME="Scalar-Util" VERSION="0,0,0,0" />
-        <DEPENDENCY NAME="LWP-UserAgent" VERSION="5,800,0,0" />
+        <DEPENDENCY NAME="LWP-UserAgent" VERSION="2,032,0,0" />
         <DEPENDENCY NAME="Crypt-SSLeay" VERSION="0,0,0,0" />
         <DEPENDENCY NAME="Carp" VERSION="0,0,0,0" />
         <CODEBASE HREF="PPM-WWW-FleXtel-0.03.tar.gz" />
