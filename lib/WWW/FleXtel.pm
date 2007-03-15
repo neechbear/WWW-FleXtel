@@ -30,7 +30,7 @@ use LWP::UserAgent qw();
 use Carp qw(croak cluck carp confess);
 use vars qw($VERSION $DEBUG);
 
-$VERSION = '0.04' || sprintf('%d', q$Revision$ =~ /(\d+)/g);
+$VERSION = '0.05' || sprintf('%d', q$Revision$ =~ /(\d+)/g);
 $DEBUG ||= $ENV{DEBUG} ? 1 : 0;
 
 my $objstore = {};
@@ -577,6 +577,8 @@ attached to an account number.
 
 =head1 SEE ALSO
 
+examples/*.pl,
+L<http://search.cpan.org/src/NICOLAW/WWW-Flextel-0.05/examples/>,
 L<http://www.flextel.ltd.uk>
 
 =head1 VERSION

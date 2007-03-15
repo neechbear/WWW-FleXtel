@@ -104,10 +104,12 @@ TODO
     to an account number.
 
 SEE ALSO
+    examples/*.pl,
+    <http://search.cpan.org/src/NICOLAW/WWW-Flextel-0.05/examples/>,
     <http://www.flextel.ltd.uk>
 
 VERSION
-    $Id: FleXtel.pm 954 2007-02-25 21:51:05Z nicolaw $
+    $Id: FleXtel.pm 996 2007-03-05 13:08:00Z nicolaw $
 
 AUTHOR
     Nicola Worthington <nicolaw@cpan.org>
